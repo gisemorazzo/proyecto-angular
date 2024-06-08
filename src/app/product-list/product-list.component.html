@@ -1,0 +1,39 @@
+<h1>Lista de Productos</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Compra</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (produc of products; track products) {
+            <tr>
+                <td><img mg widt="100" class="img-thumbnail" /></td>
+                <td>{{product.name | uppercase}}</td>
+                <td>{{product.type}}</td>
+                <td>{{product.price  |currency}}
+                    </td>
+                @if (product.stock>0){
+                    <td>{{product.stock}}</td>
+                }@else {
+                    <td><span class="badge badge-warning" >Sin stock</span></td>
+                  }           
+            </tr>
+            } @empty{
+                <tr>
+                    <td colspan="4">No hay productos para mostrar</td>
+                    <td><button class="btn btn-primary btn-sm" (click)="downQuantity(product)">-</button>
+                        <input type="text" [(ngModel)]="product.quantity"
+                        (keyup)="changeQuantity($event, product)">
+                        {{product.quantity}}
+                        <button class="btn btn-primary btn-sm" (click)="upQuantity(product)">+</button></td>
+                </tr>
+            }
+    </tbody>
+</table>
